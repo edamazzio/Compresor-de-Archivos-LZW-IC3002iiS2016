@@ -76,7 +76,7 @@ namespace CompresorLZW_CMD
         }
 
 
-        private static string getFileName(string fileURL, string extension)
+        public static string getFileName(string fileURL, string extension)
         {
             string newFilename = fileURL;
             int contador = 1;

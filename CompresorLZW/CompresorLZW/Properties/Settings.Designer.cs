@@ -34,5 +34,17 @@ namespace CompresorLZW.Properties {
                 this["tvMainRootPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\")]
+        public string LZW_CMD {
+            get {
+                return ((string)(this["LZW_CMD"]));
+            }
+            set {
+                this["LZW_CMD"] = value;
+            }
+        }
     }
 }
