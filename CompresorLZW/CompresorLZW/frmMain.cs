@@ -190,7 +190,14 @@ namespace CompresorLZW
         private void refreshTvMain()
         {
             ListDirectory(tvMain, @Properties.Settings.Default.tvMainRootPath);
-            tvMain.GetNodeAt(0, 0).Expand();
+            try
+            {
+                tvMain.GetNodeAt(0, 0).Expand();
+            }
+            catch (Exception)
+            {
+                refreshTvMain(Properties.Settings.Default.tvMainRootPath);
+            }
         }
 
         /// <summary>
@@ -200,6 +207,7 @@ namespace CompresorLZW
         {
             ejecutar(1);
             filesResult.Clear();
+            refreshTvMain();
         }
 
         /// <summary>
@@ -209,6 +217,7 @@ namespace CompresorLZW
         {
             ejecutar(2);
             filesResult.Clear();
+            refreshTvMain();
         }
 
         /// <summary>
