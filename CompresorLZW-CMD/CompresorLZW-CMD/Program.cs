@@ -11,55 +11,102 @@ namespace CompresorLZW_CMD
     {
         static int Main(string[] args)
         {
-            string generalErrorMessage = "Modo de uso: \ncomprimir <x:\\ruta y nombre del\\archivo.extension\ndescomprimir <x:\\ruta y nombre del\\archivo.extension>";
-            if (args.Length == 0)
-            {
-                System.Console.WriteLine(generalErrorMessage);
-                return 1;
-            }
-            else
-            {
-                if (args.Length >= 2)
-                {
-                    if (args[0] == "comprimir")
-                    {
-                        if (File.Exists(@args[1]))
-                        {
-                            Console.WriteLine("Found... Compressing");
-                            return 0;
-                        }
-                        else
-                        {
-                            Console.WriteLine("File Not Found");
-                            return 1;
-                        }
-                    }
+            /*
+            IMPORTANTE 
+            CODIGOS DE ERROR DE RETORNO:
+            formato:   <numero retorno> = <motivo por el que es lanzado el código>
+            ---
+                    -2 = se introdujeron menos de 2 argumentos
+                    -1 = Comando desconocido: args[0] != "comprimir" && args[0] != "descomprimir"
+                     0 = TODO BIEN
+            //LZW.cs 1 = IOException: No se puede abrir el archivo, principalmente está en uso
+            //LZW.cs 2 = FormatException: El archivo no tiene números, por lo tanto no se puede descomprimir
+                     3 = File.Exists == false: El archivo que se proporcionó en la línea de comandos no existe (args[1])
+            //LZW.cs 4 = UnauthorizedAccessException: No tiene privilegios de admin
+        
+            */
 
-                    else if (args[0] == "descomprimir")
+            string generalErrorMessage = "Modo de uso: \ncomprimir <x:\\ruta y nombre del\\archivo.extension\ndescomprimir <x:\\ruta y nombre del\\archivo.extension>";
+            
+            if (args.Length >= 2)
+            {
+                if (args[0] == "comprimir")
+                {
+                    if (File.Exists(@args[1]))
                     {
-                        if (File.Exists(@args[1]))
+                        Console.WriteLine("Found... Compressing");
+                        int runCode = LZW.compress(@args[1]);
+                        if (runCode == 0)
                         {
-                            Console.WriteLine("Found... Decompressing");
-                            return 0;
+                            Console.WriteLine("El archivo se ha comprimido!");
+                            return runCode;
+                        }
+                        else if (runCode == 1)
+                        {
+                            Console.WriteLine("Error, el archivo está actualmente en uso.");
+                            return runCode;
                         }
                         else
                         {
-                            Console.WriteLine("File Not Found");
-                            return 1;
+                            Console.WriteLine("Error, no tiene suficentes permisos para acceder al archivo");
+                            return runCode;
                         }
+                            
                     }
                     else
                     {
-                        Console.WriteLine("Comando desconocido");
-                        return 1;
+                        Console.WriteLine("File Not Found");
+                        return 3;
+                    }
+                }
+
+                else if (args[0] == "descomprimir")
+                {
+                    if (File.Exists(@args[1]))
+                    {
+                        Console.WriteLine("Found... Decompressing");
+                        int runCode = LZW.decompress(@args[1]);
+                        if (runCode == 0)
+                        {
+                            Console.WriteLine("El archivo se ha descomprimido!");
+                            return runCode;
+                        }
+                        else if (runCode == 1)
+                        {
+                            Console.WriteLine("Error, el archivo está actualmente en uso.");
+                            return runCode;
+                        }
+                        else if (runCode == 2)
+                        {
+                            Console.WriteLine("Error, el archivo seleccionado no contiene datos descomprimibles.");
+                            return runCode;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error, no tiene suficentes permisos para acceder al archivo");
+                            return runCode;
+                        }
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("File Not Found");
+                        return 3;
                     }
                 }
                 else
                 {
-                    System.Console.WriteLine(generalErrorMessage);
+                    Console.WriteLine("Comando desconocido");
+                    return -1;
                 }
             }
-            return 1;
+            else
+            {
+                System.Console.WriteLine(generalErrorMessage);
+                return -2;
+            }
         }
+        
+
     }
 }
