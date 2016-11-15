@@ -31,8 +31,6 @@
             this.tvMain = new System.Windows.Forms.TreeView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.configuracionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.configuracionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.rutaInicialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRefreshTree = new System.Windows.Forms.Button();
@@ -66,40 +64,23 @@
             // archivoToolStripMenuItem
             // 
             this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.configuracionToolStripMenuItem,
             this.rutaInicialToolStripMenuItem,
             this.salirToolStripMenuItem});
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
             this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.archivoToolStripMenuItem.Text = "Archivo";
             // 
-            // configuracionToolStripMenuItem
-            // 
-            this.configuracionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.configuracionToolStripMenuItem1});
-            this.configuracionToolStripMenuItem.Name = "configuracionToolStripMenuItem";
-            this.configuracionToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.configuracionToolStripMenuItem.Text = "Archivo";
-            this.configuracionToolStripMenuItem.Click += new System.EventHandler(this.configuracionToolStripMenuItem_Click);
-            // 
-            // configuracionToolStripMenuItem1
-            // 
-            this.configuracionToolStripMenuItem1.Name = "configuracionToolStripMenuItem1";
-            this.configuracionToolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
-            this.configuracionToolStripMenuItem1.Text = "Configuracion";
-            this.configuracionToolStripMenuItem1.Click += new System.EventHandler(this.configuracionToolStripMenuItem1_Click);
-            // 
             // rutaInicialToolStripMenuItem
             // 
             this.rutaInicialToolStripMenuItem.Name = "rutaInicialToolStripMenuItem";
-            this.rutaInicialToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.rutaInicialToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.rutaInicialToolStripMenuItem.Text = "Ruta inicial";
             this.rutaInicialToolStripMenuItem.Click += new System.EventHandler(this.rutaInicialToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
@@ -168,13 +149,11 @@
         private System.Windows.Forms.TreeView tvMain;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem configuracionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rutaInicialToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.Button btnRefreshTree;
         private System.Windows.Forms.Button btnAnalizar;
         private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.ToolStripMenuItem configuracionToolStripMenuItem1;
         private System.Windows.Forms.Button button1;
     }
 }

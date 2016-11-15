@@ -30,7 +30,7 @@ namespace CompresorLZW_CMD
                 }
                 else
                 {
-                    // write w to output
+                    // write w to outputa
                     compressed.Add(dictionary[w]);
                     // wc is a new sequence; add it to the dictionary
                     dictionary.Add(wc, dictionary.Count);
