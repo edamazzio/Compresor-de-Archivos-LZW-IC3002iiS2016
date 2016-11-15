@@ -224,7 +224,7 @@ namespace CompresorLZW
             {
                 if (modo == 1)
                 {
-                    filesResult.Add(run_cmd("comprimir " + file)); 
+                    filesResult.Add(run_cmd("comprimir \"" + file +"\"")); 
                 }
                 else
                 {
