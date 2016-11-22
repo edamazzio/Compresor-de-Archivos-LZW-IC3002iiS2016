@@ -1,5 +1,7 @@
-﻿using System;
+﻿using CompresorLZW.Properties;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,6 +16,8 @@ namespace CompresorLZW
         [STAThread]
         static void Main()
         {
+            if (Debugger.IsAttached)
+                Settings.Default.Reset();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmMain());

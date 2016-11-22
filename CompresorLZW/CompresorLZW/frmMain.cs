@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -233,11 +234,11 @@ namespace CompresorLZW
             {
                 if (modo == 1)
                 {
-                    filesResult.Add(run_cmd("comprimir \"" + file +"\"")); 
+                    filesResult.Add(sendMessageMSMQ("comprimir " + file)); 
                 }
                 else
                 {
-                    filesResult.Add(run_cmd("descomprimir " + file)); 
+                    filesResult.Add(sendMessageMSMQ("descomprimir " + file)); 
                 }
             }
 
@@ -273,11 +274,11 @@ namespace CompresorLZW
             ProcessStartInfo start = new ProcessStartInfo();
             while (!File.Exists(Properties.Settings.Default.LZW_CMD))
             {
-                MessageBox.Show("No se ha encontrado el ejecutable CompresorLZW-CMD.exe. Seleccione la ubicación de python.exe a continuación.", "Archivo no encontrado");
+                MessageBox.Show("No se ha encontrado el ejecutable CompresorLZW-CMD.exe. Seleccione la ubicación de CompresorLZW-CMD.exe a continuación.", "Archivo no encontrado");
                 findLZW_CMD();
             }
             start.FileName = Properties.Settings.Default.LZW_CMD; ;//cmd is full path to LZW-CMD.exe
-            start.Arguments = args;//args is path to the file to compress
+            start.Arguments = args;//args is + modo + path to the file to compress including name
             ;
             start.UseShellExecute = false;
             start.RedirectStandardOutput = true;
@@ -290,6 +291,34 @@ namespace CompresorLZW
                 }
             }
             return result;
+        }
+
+
+        /// <summary>
+        /// Manda mensages al queue de microsoft
+        /// </summary>
+        /// <param name="message">el parametro es el string que se le desea mandar</param>
+        private string sendMessageMSMQ(string message)
+        {
+
+            MessageQueue messageQueue = null;
+            if (MessageQueue.Exists(@".\Private$\LZWqueue"))
+            {
+                messageQueue = new MessageQueue(@".\Private$\LZWqueue");
+                messageQueue.Label = "LZE Queue";
+            }
+            else
+            {
+                // Create the Queue
+                MessageQueue.Create(@".\Private$\LZWqueue");
+                messageQueue = new MessageQueue(@".\Private$\LZWqueue");
+                messageQueue.Label = "Newly Created Queue";
+            }
+
+            System.Messaging.Message msg = new System.Messaging.Message(message);
+            messageQueue.Send(msg, "LZW query");
+            return ("Se ha enviado la operacion al Message Queue de Windows listo para que lo ejecute otra aplicación.");
+            
         }
         
 
