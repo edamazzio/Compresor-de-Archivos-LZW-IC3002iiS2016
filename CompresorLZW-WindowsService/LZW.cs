@@ -165,6 +165,14 @@ namespace CompresorLZW_WindowsService
             {
                 return 4;
             }
+            catch (OverflowException e)
+            {
+                return 2;
+            }
+            catch (Exception e)
+            {
+                return 5;
+            }
 
         }
     }
